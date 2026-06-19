@@ -1,0 +1,35 @@
+{
+  "name": "react-form-chain",
+  "version": "1.0.0",
+  "description": "A simple form validation and schema manager for javascript projects",
+  "keywords": [
+    "react",
+    "javascript",
+    "form",
+    "validation",
+    "valid",
+    "schema",
+    "chain",
+    "handling",
+    "simple",
+    "lightweight",
+    "light",
+    "solution",
+    "typescript"
+  ],
+  "license": "ISC",
+  "author": "Micah Lewis",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "test",
+    "build": "tsc"
+  }
+}
