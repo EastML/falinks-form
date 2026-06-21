@@ -7,12 +7,13 @@ It focuses on **composable validation rules**, **straightforward form-based sche
 Like its Pokémon namesake, it works as a chain of small units acting as one system.
 
 ### ✨ Features
+- 📦 Minimal API
 - ⚡ Simple schema-based validation
 - 🧩 Out-of-the-box ready or custom composable validation rules
 - 🧠 Type-safe form keys (TypeScript)
 - 🚫 Optional field support via validation chain
 - 🔗 Functional / chainable validator design
-- 📦 Minimal API
+- ⛓️‍💥Framework agnostic. It works with React, Vue, Svelte, Vanilla JS, Node, and more.
 
 
 ### 📦 Installation
@@ -21,7 +22,7 @@ Like its Pokémon namesake, it works as a chain of small units acting as one sys
 npm install falinks
 ```
 
-## Basic Usage
+## 🤔 Basic Usage
 
 1. Define your form values as an object.
 2. Create a schema object with the same property names as your form.
@@ -63,7 +64,7 @@ console.log(result.fields);
 - hasErrors: true if any validation failed
 - fields: object containing field-level error messages
 
-## Core Concepts
+## ⭐ Core Concepts
 
 Falinks validates forms using a schema-driven validation chain:
 ```js 
@@ -95,7 +96,7 @@ formHasErrors(form, schema)
 }
 ```
 
-## Out-of-the-box Validation Functions
+## 🧰 Out-of-the-box Validation Functions
 Falinks provides a few out of the box validation functions for you to use. They are defined below.
 
 ### Optional Fields
@@ -207,7 +208,7 @@ if (result.hasErrors) {
 }
 ```
 
-## Create Your Own Custom Validation
+## 🤩 Create Your Own Custom Validation
 
 If you would like to implement validation that is not covered by the out-of-the-box validation that Falinks provides, you can also simply add in your own validation function and add it to the validation array.
 
