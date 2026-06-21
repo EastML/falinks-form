@@ -15,12 +15,12 @@ export type FormErrors<T extends TForm> = { [K in keyof T]?: string | false }
  * @param {Schema} schema
  * @returns An object with the included errors in the form.
  */
-const validateForm = (
-  form: TForm,
+const validateForm = <T extends TForm>(
+  form: T,
   schema: { [K in keyof TForm]: ValidationRule[] }
 ) => {
   const paramsAreNotObjects = typeof form !== 'object' || typeof schema !== 'object'
-  const formKeysNotInSchema = Object.keys(form).every(val => Object.keys(schema).includes(val))
+  const formKeysNotInSchema = Object.keys(form).some(val => Object.keys(schema).indexOf(val) === -1)
 
   if (paramsAreNotObjects) throw new Error('Falinks: The provided form and/or schema is not an object')
   if (formKeysNotInSchema) throw new Error('Falinks: The schema fields and form fields do not match.')
@@ -32,13 +32,12 @@ const validateForm = (
     if (schema[field].includes(OPTIONAL) && value.trim() === "") return;
 
     for (const validationFunc of schema[field]) {
-      // If the validationFunc is instead the OPTIONAL symbol, skip and go to the next.
       if (validationFunc === OPTIONAL) continue;
-      // Check if there is a field error based on the validation function
+
       const fieldHasError = validationFunc(value, form);
-      // If there is an error, set the error to the formErrors property of the same name.
+
       if (fieldHasError) formErrors[field] = fieldHasError;
-      // If there are any errors, end he run, and just got ot he next form field.
+
       if (formErrors[field]) break;
     }
   });

@@ -8,7 +8,7 @@ import { OPTIONAL } from "./rules.js";
  */
 const validateForm = (form, schema) => {
     const paramsAreNotObjects = typeof form !== 'object' || typeof schema !== 'object';
-    const formKeysNotInSchema = Object.keys(form).every(val => Object.keys(schema).includes(val));
+    const formKeysNotInSchema = Object.keys(form).some(val => Object.keys(schema).indexOf(val) === -1);
     if (paramsAreNotObjects)
         throw new Error('Falinks: The provided form and/or schema is not an object');
     if (formKeysNotInSchema)
