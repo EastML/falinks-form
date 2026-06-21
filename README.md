@@ -1,33 +1,35 @@
 # 🐾 Falinks
 
-Falinks is a tiny, type-safe form validation library for JavaScript/TypeScript inspired by functional validation chains.
+Falinks is a tiny, incredibly lightweight, type-safe form validation library for JavaScript/TypeScript inspired by functional validation chains.
 
-It focuses on **composable validation rules**, **per-field schemas**, and an incredibly simple and minimal API .
+It focuses on **composable validation rules**, **straightforward form-based schema**, and an incredibly simple and minimal API.
 
-Only one function is exposed publicly: `formHasErrors`.
+Like its Pokémon namesake, it works as a chain of small units acting as one system.
 
----
-
-## ✨ Features
-
+### ✨ Features
 - ⚡ Simple schema-based validation
-- 🧩 Composable validation rules
+- 🧩 Out-of-the-box ready or custom composable validation rules
 - 🧠 Type-safe form keys (TypeScript)
 - 🚫 Optional field support via validation chain
 - 🔗 Functional / chainable validator design
-- 📦 Minimal API (only `formHasErrors` is exposed)
+- 📦 Minimal API
 
----
 
-## 📦 Installation
+### 📦 Installation
 
 ```bash
 npm install falinks
 ```
 
-# Basic Usage
+## Basic Usage
 
-## Example
+1. Define your form values as an object.
+2. Create a schema object with the same property names as your form.
+3. Fill in the validation rules as an array of functions in your schema.
+4. Call the `formHasErrors` api, passing in the form and schema.
+5. `formHasErrors` exposes the `hasErrors` and `fields`, which you can then use as you see fit to handle errors during form submissions. 
+
+### Example
 ```js
 import { formHasErrors, isRequired, isEmail } from "falinks";
 
@@ -47,7 +49,7 @@ console.log(result.hasErrors);
 console.log(result.fields);
 ```
 
-## Example Output
+### Example Output
 
 ```ts
 {
@@ -61,17 +63,19 @@ console.log(result.fields);
 - hasErrors: true if any validation failed
 - fields: object containing field-level error messages
 
-# Core Concept
+## Core Concepts
 
 Falinks validates forms using a schema-driven validation chain:
 ```js 
-schema[field] = [rule1, rule2, rule3]
+const schema = {
+  fieldName: [rule1, rule2, rule3]
+}
 ```
 Each rule runs in order until:
 - a validation test is failed
 - all validation tests are passed
 
-## Core API
+### Core API
 
 `formHasErrors(form, schema)`
 The only exported function from Falinks.
@@ -91,12 +95,13 @@ formHasErrors(form, schema)
 }
 ```
 
-# Optional Fields
+## Out-of-the-box Validation Functions
+Falinks provides a few out of the box validation functions for you to use. They are defined below.
+
+### Optional Fields
 Use `OPTIONAL` in a validation chain to skip validation when a field is empty:
 
 ```js
-import { OPTIONAL, isEmail } from "falinks";
-
 const schema = {
   email: [OPTIONAL, isEmail],
 };
@@ -105,67 +110,73 @@ Behavior:
 - If the field is empty → skip all validation
 - Otherwise → run rules normally
 
-# Built-in Validation Rules
-
-## Required Field
-`isRequired(text: string)`
+### Required Field
 Ensures a value is not empty.
 
-```js
-isRequired(" ") // "Input required"
-```
-
-## Minimum Length
-`minLength(text: string, limit: number)`
-Ensures text is above a minimum length.
+`isRequired(text: string)`
 
 ```js
-minLength("abc", 5) // "Input too short (3 / 5） characters"
+const schema = {
+  fieldName: [isRequired] // "Input required"
+}
 ```
 
-## Maximum Length
-`maxLength(text: string, limit: number)`
+### Maximum Length
 Ensures text is below a maximum length.
 
+`maxLength(limit: number)`
+
 ```js
-maxLength("hello world", 5) // "Input too long. (11 / 5) characters"
+const schema = {
+  fieldName: [maxLength(5)] // "Input too long (8 / 5） characters"
+}
 ```
 
-## Number Required
-`isNumber(text: string)`
+### Minimum Length
+Ensures text is above a minimum length.
+
+`minLength(limit: number)`
+
+```js
+const schema = {
+  fieldName: [tooShort(5)] // "Input too short (3 / 5）characters"
+}
+```
+
+### Number Required
 Ensures the input is numeric.
 
+`isNumber(text: string)`
+
 ```js
-isNumber("abc") // "Input must be a number"
+const schema = {
+  fieldName: [isNumber] // "Input must be a number"
+}
 ```
 
-## Email Format 
-`isEmail(text: string)`
+### Email Format 
 Validates email format.
 
+`isEmail(text: string)`
+
 ```js
-isEmail("not-an-email") // "Invalid email format (ex: person@email.com)"
+const schema = {
+  fieldName: [isEmail] // "Invalid email format (ex: person@email.com)"
+}
 ```
 
-## Matches Field
-`matches(getValue: () => string)`
+### Matches Field
 Cross-field validation (e.g. confirm password).
 
+`matches(fieldName: string)`
+
 ```js
-matches(() => form.password)
+const schema = {
+  fieldName: [matches('password')] // "Values do not match"
+}
 ```
 
-# 🐉 Philosophy
-
-Falinks is designed around:
-- Small, composable validation units
-- Functional programming style
-- Predictable, explicit schemas
-- Minimal API surface (no bloat)
-
-Like its Pokémon namesake, it works as a chain of small units acting as one system.
-
-# Example Full Form
+## Example Full Form
 ```js
 import {
   formHasErrors,
@@ -183,21 +194,49 @@ const form = {
 
 const schema = {
   email: [isRequired, isEmail],
-  password: [isRequired, minLength],
-  confirmPassword: [
-    isRequired,
-    matches(() => form.password),
-  ],
+  password: [isRequired, minLength(8)],
+  confirmPassword: [isRequired, matches('password')],
 };
 
 const result = formHasErrors(form, schema);
+// Optionally you can just destructure in the following way:
+// const { hasError, fields } = formHasErrors(form, schema)
 
 if (result.hasErrors) {
   console.log(result.fields);
 }
 ```
 
-# 📌 Notes
+## Create Your Own Custom Validation
+
+If you would like to implement validation that is not covered by the out-of-the-box validation that Falinks provides, you can also simply add in your own validation function and add it to the validation array.
+
+```js
+// Custom validation function
+
+const zipCodeUS = (value: string) => {
+  const zipCodeRegex = /^\d{5}(-\d{4})?$/
+  const isZipCode = zipCodeRegex.test(value)
+  
+  // It should return either the validation message (if the validation fails)
+  // or false (if the validation succeeds)
+  return !isZipCode && "Incorrect zip code format"
+}
+
+const form = {
+  zipCode: '123567' // wrong format
+}
+
+const schema = {
+  zipCode: [required, zipCodeUS]
+}
+
+const { hasErrors, fields } = fieldHasErrors(form, schema)
+// hasErrors: true
+// fields: { zipCode: 'Incorrect zip code format'}
+```
+
+## 📌 Notes
 - Validation stops at the first failing rule per field
-- Empty fields can be skipped using OPTIONAL
+- Empty fields can be skipped using OPTIONAL 
 - All form values are treated as strings
