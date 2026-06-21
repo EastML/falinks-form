@@ -32,6 +32,7 @@
   "files": [
     "dist"
   ],
+  "repository": "github:eastml/falinks-form",
   "scripts": {
     "test": "test",
     "build": "tsc",
