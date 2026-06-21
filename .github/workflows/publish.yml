@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # Uses stable Node LTS
+          node-version: '24' # Uses stable Node LTS
           registry-url: 'https://npmjs.org'
 
       - name: Install Project Dependencies
