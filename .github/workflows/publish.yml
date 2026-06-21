@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '24' # Uses stable Node LTS
-          registry-url: 'https://npmjs.org'
+          registry-url: 'https://registry.npmjs.org/'
 
       - name: Install Project Dependencies
         run: npm ci
