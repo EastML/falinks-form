@@ -1,6 +1,6 @@
-# 🐾 Falinks
+# 🐾 Falinks-Form
 
-Falinks is a tiny, incredibly lightweight, type-safe form validation library for JavaScript/TypeScript inspired by functional validation chains.
+Falinks-Form is a tiny, incredibly lightweight, type-safe form validation library for JavaScript/TypeScript inspired by functional validation chains.
 
 It focuses on **composable validation rules**, **straightforward form-based schema**, and an incredibly simple and minimal API.
 
@@ -19,7 +19,7 @@ Like its Pokémon namesake, it works as a chain of small units acting as one sys
 ### 📦 Installation
 
 ```bash
-npm install falinks
+npm install falinks-form
 ```
 
 ## 🤔 Basic Usage
@@ -32,7 +32,7 @@ npm install falinks
 
 ### Example
 ```js
-import { formHasErrors, isRequired, isEmail } from "falinks";
+import { formHasErrors, isRequired, isEmail } from "falinks-form";
 
 const form = {
   email: "",
@@ -66,7 +66,7 @@ console.log(result.fields);
 
 ## ⭐ Core Concepts
 
-Falinks validates forms using a schema-driven validation chain:
+Falinks-Form validates forms using a schema-driven validation chain:
 ```js 
 const schema = {
   fieldName: [rule1, rule2, rule3]
@@ -79,7 +79,7 @@ Each rule runs in order until:
 ### Core API
 
 `formHasErrors(form, schema)`
-The only exported function from Falinks.
+The only exported function from Falinks-Form.
 
 ```js
 formHasErrors(form, schema)
@@ -97,7 +97,7 @@ formHasErrors(form, schema)
 ```
 
 ## 🧰 Out-of-the-box Validation Functions
-Falinks provides a few out of the box validation functions for you to use. They are defined below.
+Falinks-Form provides a few out of the box validation functions for you to use. They are defined below.
 
 ### Optional Fields
 Use `OPTIONAL` in a validation chain to skip validation when a field is empty:
@@ -185,7 +185,7 @@ import {
   isEmail,
   minLength,
   matches,
-} from "falinks";
+} from "falinks-form";
 
 const form = {
   email: "",
@@ -210,7 +210,7 @@ if (result.hasErrors) {
 
 ## 🤩 Create Your Own Custom Validation
 
-If you would like to implement validation that is not covered by the out-of-the-box validation that Falinks provides, you can also simply add in your own validation function and add it to the validation array.
+If you would like to implement validation that is not covered by the out-of-the-box validation that Falinks-Form provides, you can also simply add in your own validation function and add it to the validation array.
 
 ```js
 // Custom validation function

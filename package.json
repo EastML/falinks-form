@@ -1,5 +1,5 @@
 {
-  "name": "falinks",
+  "name": "falinks-form",
   "version": "1.0.0",
   "description": "A simple form validation and schema manager for javascript projects",
   "keywords": [
@@ -11,11 +11,14 @@
     "schema",
     "chain",
     "handling",
+    "easy",
     "simple",
     "lightweight",
     "light",
-    "solution",
-    "typescript"
+    "typescript",
+    "vue",
+    "svelte",
+    "node"
   ],
   "license": "ISC",
   "author": "Micah Lewis",
