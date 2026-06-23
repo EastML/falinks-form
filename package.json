@@ -36,6 +36,10 @@
     "type": "git",
     "url": "git+https://github.com/eastml/falinks-form.git"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "test": "test",
     "build": "tsc",
