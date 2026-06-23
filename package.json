@@ -32,7 +32,10 @@
   "files": [
     "dist"
   ],
-  "repository": "github:eastml/falinks-form",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eastml/falinks-form.git"
+  },
   "scripts": {
     "test": "test",
     "build": "tsc",
