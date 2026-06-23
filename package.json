@@ -34,7 +34,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eastml/falinks-form.git"
+    "url": "git+https://github.com/EastML/falinks-form"
   },
   "publishConfig": {
     "access": "public",
