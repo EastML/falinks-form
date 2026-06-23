@@ -1,6 +1,6 @@
 {
   "name": "falinks-form",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Simple form validation and schema manager for javascript projects",
   "keywords": [
     "react",
